@@ -45,7 +45,7 @@ jobs:
     steps:
     - name: Pull and restart Docker container
       run: |
-        docker pull ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
-        docker stop postgresql-replica-api || true
-        docker rm postgresql-replica-api || true
-        docker run -d --name postgresql-replica-api -p 8080:8080 ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
+        sudo docker pull ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
+        sudo docker stop postgresql-replica-api || true
+        sudo docker rm postgresql-replica-api || true
+        sudo docker run -d --name postgresql-replica-api -p 8080:8080 ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
