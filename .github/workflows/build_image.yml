@@ -37,3 +37,15 @@ jobs:
         context: .
         push: true
         tags: ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted  # Runs on the self-hosted runner in your VM
+
+    steps:
+    - name: Pull and restart Docker container
+      run: |
+        docker pull ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
+        docker stop postgresql-replica-api || true
+        docker rm postgresql-replica-api || true
+        docker run -d --name postgresql-replica-api -p 8080:8080 ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
