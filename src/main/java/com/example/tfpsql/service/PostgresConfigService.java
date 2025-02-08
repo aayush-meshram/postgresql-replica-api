@@ -12,7 +12,7 @@ public class PostgresConfigService {
 
     CommandLineHelper commandLineHelper;
 
-    public String tfPlan(PostgresConfigEntity postgresConfigEntity) {
+    public String tfPlan(String postgresConfigEntity) {
         commandLineHelper = new CommandLineHelper();
         return commandLineHelper.execute("pwd");
     }
