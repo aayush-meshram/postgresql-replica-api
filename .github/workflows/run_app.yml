@@ -1,0 +1,38 @@
+name: Deploy Spring Boot App to EC2
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted  # Uses your self-hosted runner on EC2
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (Temurin)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Stop Running Application
+        run: |
+          echo "Stopping existing Spring Boot app..."
+          pkill -f "java -jar app.jar" || true
+
+      - name: Build Spring Boot Application
+        run: |
+          echo "Building Spring Boot application..."
+          ./mvnw clean package -DskipTests
+
+      - name: Run Application in Background
+        run: |
+          echo "Starting Spring Boot application..."
+          nohup java -jar target/*.jar > app.log 2>&1 &
+      
+      - name: Verify Application is Running
+        run: |
+          sleep 5  # Wait for the app to start
+          curl -I http://localhost:8080/hello || (echo "App is not running!" && exit 1)
