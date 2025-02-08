@@ -26,7 +26,5 @@ jobs:
 
     - name: Run Terraform Init
       run: |
-        ls 
-        pwd
-        # cd postgresql-replica-api/tf-resources/terraform
-        # terraform init
+        cd tf-resources/terraform
+        terraform init
