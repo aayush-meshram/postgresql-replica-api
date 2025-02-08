@@ -6,7 +6,7 @@ resource "aws_instance" "ec2" {
 
   subnet_id = "subnet-071824d1339ca0e0d"
   depends_on = [aws_security_group.aws_sg_psql_primary]
-  security_groups = aws_security_group.aws_sg_psql.id
+  security_groups = aws_security_group.aws_sg_psql_primary.id
 
   tags = {
     Name = "Server-${each.value.name}-Primary"
@@ -20,7 +20,7 @@ resource "aws_instance" "ec2_replica" {
 
   subnet_id = "subnet-00c7b5c416207512d"
   depends_on = [aws_security_group.aws_sg_psql_replica]
-  security_groups = aws_security_group.aws_sg_psql.id
+  security_groups = aws_security_group.aws_sg_psql_replica.id
 
   tags = {
     Name = "Server-${each.value.name}-Replica"
