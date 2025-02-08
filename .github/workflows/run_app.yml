@@ -17,6 +17,9 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Grant Execute Permissions to Maven Wrapper
+        run: chmod +x mvnw
+
       - name: Stop Running Application
         run: |
           echo "Stopping existing Spring Boot app..."
