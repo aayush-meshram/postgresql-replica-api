@@ -13,7 +13,7 @@ jobs:
         sudo docker pull ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
         sudo docker stop postgresql-replica-api || true
         sudo docker rm postgresql-replica-api || true
-        sudo docker run -d -v /home/ec2-user/run_command.sh:/app/run_command.sh --name postgresql-replica-api -p 8080:8080 ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
+        sudo docker run -d -v /home/admin/run_command.sh:/app/run_command.sh --name postgresql-replica-api -p 8080:8080 ghcr.io/${{ github.repository }}/postgresql-replica-api:latest
 
     - name: Pull Github Code to pull in terraform files
       uses: actions/checkout@v2
