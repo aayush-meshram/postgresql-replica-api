@@ -1,9 +1,7 @@
 name: Deploy Spring Boot App on Self-Hosted VM
 
 on:
-  push:
-    branches:
-      - main  # Change this if needed
+  workflow_dispatch:
 
 jobs:
   deploy:
