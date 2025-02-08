@@ -28,3 +28,4 @@ jobs:
       run: |
         cd tf-resources/terraform
         terraform init
+        terraform plan
