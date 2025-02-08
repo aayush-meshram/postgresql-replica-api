@@ -5,7 +5,7 @@ resource "aws_instance" "ec2" {
   instance_type = "t2.micro"
 
   subnet_id = "subnet-071824d1339ca0e0d"
-  depends_on = [aws_security_group.aws_sg_psql]
+  depends_on = [aws_security_group.aws_sg_psql_primary]
   security_groups = aws_security_group.aws_sg_psql.id
 
   tags = {
@@ -19,7 +19,7 @@ resource "aws_instance" "ec2_replica" {
   instance_type = "t2.micro"
 
   subnet_id = "subnet-00c7b5c416207512d"
-  depends_on = [aws_security_group.aws_sg_psql]
+  depends_on = [aws_security_group.aws_sg_psql_replica]
   security_groups = aws_security_group.aws_sg_psql.id
 
   tags = {
