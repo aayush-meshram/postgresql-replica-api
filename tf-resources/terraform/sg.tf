@@ -43,7 +43,7 @@ resource "aws_security_group" "aws_sg_psql_replica" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
+resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4_replica" {
   security_group_id = aws_security_group.aws_sg_psql_replica.id
   cidr_ipv4         = "10.0.128.128/25"
   from_port         = 5432
@@ -51,7 +51,7 @@ resource "aws_vpc_security_group_ingress_rule" "allow_tls_ipv4" {
   to_port           = 5432
 }
 
-resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4_replica" {
   security_group_id = aws_security_group.aws_sg_psql_replica.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
