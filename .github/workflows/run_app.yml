@@ -43,7 +43,7 @@ jobs:
 
           [Service]
           User=admin
-          ExecStart=/usr/bin/java -jar /opt/springboot-app/your-app.jar
+          ExecStart=/usr/bin/java -jar /target/*.jar
           SuccessExitStatus=143
           Restart=on-failure
           RestartSec=30
