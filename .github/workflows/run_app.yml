@@ -43,6 +43,7 @@ jobs:
 
           [Service]
           User=admin
+          WorkingDirectory=/home/admin/actions-runner/_work/postgresql-replica-api/postgresql-replica-api/tf-resources/terraform
           ExecStart= /home/admin/actions-runner/_work/_tool/Java_Temurin-Hotspot_jdk/17.0.14-7/x64/bin/java -jar /opt/springboot-app/your-app.jar -jar /opt/springboot-app/your-app.jar
           SuccessExitStatus=143
           Restart=on-failure
