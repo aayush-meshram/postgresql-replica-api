@@ -25,4 +25,9 @@ public class PostgresConfigController {
     public ResponseEntity<String> tfPlan(@RequestBody PostgresConfigEntity entity) {
         return new ResponseEntity<>( postgresConfigService.tfPlan(entity), HttpStatus.OK);
     }
+
+    @PostMapping("/showCode")
+    public ResponseEntity<String> showCode(@RequestBody PostgresConfigEntity entity) {
+        return new ResponseEntity<>( postgresConfigService.printCode(entity), HttpStatus.OK);
+    }
 }

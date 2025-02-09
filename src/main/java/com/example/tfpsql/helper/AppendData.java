@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.Instant;
 
 public class AppendData {
     public void put(String dbName) {
@@ -27,7 +28,8 @@ public class AppendData {
             newInstance.put("name", dbName);
 
             // Append new instance
-            instanceMetadata.set("instance3", newInstance);
+            Instant time = Instant.now();
+            instanceMetadata.set(dbName+time, newInstance);
             ((ObjectNode) rootNode).set("instance_metadata", instanceMetadata);
 
             // Write updated JSON back to file
