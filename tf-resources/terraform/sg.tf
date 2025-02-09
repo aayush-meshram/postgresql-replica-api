@@ -34,7 +34,7 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
 ###################################################
 
 resource "aws_security_group" "aws_sg_psql_replica" {
-  name        = "allow_psql_traffic_primary"
+  name        = "allow_psql_traffic_replica"
   description = "Allow Postrgres specific inbound traffic and all outbound traffic for replica instances"
   vpc_id      = "vpc-030f3d491b1689a30"
 
