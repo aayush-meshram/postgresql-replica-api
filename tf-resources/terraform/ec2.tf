@@ -1,6 +1,6 @@
 
 resource "aws_instance" "ec2" {
-  for_each = var.pg_instances
+  for_each = var.instance_metadata
   ami           = "ami-03c68e52484d7488f"  # debian-12-amd64-20240717-1811
   instance_type = "t2.micro"
 
@@ -14,7 +14,7 @@ resource "aws_instance" "ec2" {
 }
 
 resource "aws_instance" "ec2_replica" {
-  for_each = var.pg_instances
+  for_each = var.instance_metadata
   ami           = "ami-03c68e52484d7488f"  # debian-12-amd64-20240717-1811
   instance_type = "t2.micro"
 
