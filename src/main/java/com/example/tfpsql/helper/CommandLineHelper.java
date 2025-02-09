@@ -13,7 +13,7 @@ public class CommandLineHelper {
             ProcessBuilder processBuilder = new ProcessBuilder();
 
             // If running on Linux/Mac, use "bash -c"
-            processBuilder.command("bash", "-c", "terraform init");
+            processBuilder.command("bash", "-c", command);
 
             // If running on Windows, use "cmd.exe /c"
             // processBuilder.command("cmd.exe", "/c", command);
