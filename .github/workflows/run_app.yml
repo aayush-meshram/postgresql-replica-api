@@ -16,23 +16,26 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Explicitly set JAVA_HOME for Maven and Java
+        run: |
+          export JAVA_HOME=/home/admin/actions-runner/_work/_tool/Java_Temurin-Hotspot_jdk/17.0.14-7/x64
+          export PATH=$JAVA_HOME/bin:$PATH
+
       - name: Build Spring Boot JAR
         run: |
-            ls -lart
-            pwd
-      #     chmod +x mvnw  # Ensure Maven Wrapper is executable
-      #     ./mvnw clean package -DskipTests
-      #     ls -lah target/
+          chmod +x mvnw  # Ensure Maven Wrapper is executable
+          ./mvnw clean package -DskipTests
+          ls -lah target/
 
-      # - name: Stop Existing Application
-      #   run: |
-      #     pkill -f 'java -jar' || true
+      - name: Stop Existing Application
+        run: |
+          pkill -f 'java -jar' || true
 
-      # - name: Deploy and Run Application
-      #   run: |
-      #     nohup java -jar target/*.jar > app.log 2>&1 &
+      - name: Deploy and Run Application
+        run: |
+          nohup java -jar target/*.jar > app.log 2>&1 &
       
-      # - name: Verify Application is Running
-      #   run: |
-      #     sleep 5  # Wait for the app to start
-      #     curl -I http://localhost:8080/hello || (echo "App is not running!" && exit 1)
+      - name: Verify Application is Running
+        run: |
+          sleep 5  # Wait for the app to start
+          curl -I http://localhost:8080/hello || (echo "App is not running!" && exit 1)
