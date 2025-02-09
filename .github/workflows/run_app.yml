@@ -5,7 +5,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted  # Use the self-hosted runner
+    runs-on: self-hosted  # Use your self-hosted runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -27,15 +27,38 @@ jobs:
           ./mvnw clean package -DskipTests
           ls -lah target/
 
-      - name: Stop Existing Application
+      - name: Copy JAR to Deployment Directory
         run: |
-          pkill -f 'java -jar' || true
+          # Create the deployment directory if it doesn't exist
+          sudo mkdir -p /opt/springboot-app
+          # Copy the built JAR to the deployment directory (rename if needed)
+          sudo cp target/*.jar /opt/springboot-app/your-app.jar
 
-      - name: Deploy and Run Application
+      - name: Configure systemd Service (if not already configured)
         run: |
-          nohup java -jar target/*.jar > app.log 2>&1 &
-      
+          sudo bash -c 'cat > /etc/systemd/system/springboot-app.service <<EOF
+          [Unit]
+          Description=Spring Boot Application
+          After=network.target
+
+          [Service]
+          User=admin
+          ExecStart=/usr/bin/java -jar /opt/springboot-app/your-app.jar
+          SuccessExitStatus=143
+          Restart=on-failure
+          RestartSec=10
+
+          [Install]
+          WantedBy=multi-user.target
+          EOF'
+          sudo systemctl daemon-reload
+          sudo systemctl enable springboot-app
+
+      - name: Deploy and Restart Application via systemd
+        run: |
+          sudo systemctl restart springboot-app
+
       - name: Verify Application is Running
         run: |
-          sleep 10  # Wait for the app to start
+          sleep 10  # Wait a bit for the app to start
           curl -I http://localhost:8080/hello || (echo "App is not running!" && exit 1)
