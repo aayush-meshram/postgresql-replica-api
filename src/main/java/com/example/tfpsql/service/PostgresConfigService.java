@@ -12,8 +12,8 @@ public class PostgresConfigService {
 
     CommandLineHelper commandLineHelper;
 
-    public String tfPlan(String postgresConfigEntity) {
+    public String tfPlan(String string) {
         commandLineHelper = new CommandLineHelper();
-        return commandLineHelper.execute(postgresConfigEntity);
+        return commandLineHelper.execute(string);
     }
 }
