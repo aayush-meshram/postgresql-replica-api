@@ -30,4 +30,9 @@ public class PostgresConfigController {
     public ResponseEntity<String> showCode(@RequestBody PostgresConfigEntity entity) {
         return new ResponseEntity<>( postgresConfigService.printCode(entity), HttpStatus.OK);
     }
+
+    @GetMapping("/applyCode")
+    public ResponseEntity<String> showCode() {
+        return new ResponseEntity<>( postgresConfigService.applyTFCode(), HttpStatus.OK);
+    }
 }

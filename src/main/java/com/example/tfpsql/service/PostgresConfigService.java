@@ -6,6 +6,7 @@ import com.example.tfpsql.helper.AppendData;
 import org.apache.commons.text.StringSubstitutor;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,8 +22,9 @@ public class PostgresConfigService {
         commandLineHelper = new CommandLineHelper();
         AppendData data = new AppendData();
         data.put(entity.getDatabaseName());
-        String temp = commandLineHelper.execute("terraform init");
-        return commandLineHelper.execute("terraform plan");
+        String temp = commandLineHelper.execute("terraform init > tf_init.txt");
+        temp = commandLineHelper.execute("terraform validate > tf_validate.txt");
+        return commandLineHelper.execute("terraform plan --var-file=<(cat *.tfvars) -out test.tfplan");
     }
 
     public String printCode(PostgresConfigEntity entity)    {
@@ -44,5 +46,23 @@ public class PostgresConfigService {
             e.printStackTrace();
         }
         return updatedContent;
+    }
+
+    public String applyTFCode() {
+
+        File planFile = new File("test.tfplan");
+        String output = "";
+        if(planFile.exists() && planFile.isFile() ) {
+            output = commandLineHelper.execute("terraform apply -auto-approve test.tfplan");
+            if (planFile.delete()) {
+                System.out.println("Deleted test.tfplan");
+            } else {
+                System.out.println("Failed to delete test.tfplan");
+            }
+        }
+        else {
+            System.out.println("No test.tfplan found, skipping apply");
+        }
+        return output;
     }
 }
