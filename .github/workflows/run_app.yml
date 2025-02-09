@@ -37,5 +37,5 @@ jobs:
       
       - name: Verify Application is Running
         run: |
-          sleep 5  # Wait for the app to start
+          sleep 10  # Wait for the app to start
           curl -I http://localhost:8080/hello || (echo "App is not running!" && exit 1)
