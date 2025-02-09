@@ -22,7 +22,7 @@ public class PostgresConfigController {
     }
 
     @PostMapping("/tfplan")
-    public ResponseEntity<String> tfPlan(@RequestBody String string) {
-        return new ResponseEntity<>( postgresConfigService.tfPlan(string), HttpStatus.OK);
+    public ResponseEntity<String> tfPlan(@RequestBody PostgresConfigEntity entity) {
+        return new ResponseEntity<>( postgresConfigService.tfPlan(entity), HttpStatus.OK);
     }
 }
