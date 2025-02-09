@@ -14,6 +14,7 @@ public class PostgresConfigService {
         commandLineHelper = new CommandLineHelper();
         AppendData data = new AppendData();
         data.put(entity.getDatabaseName());
+        String temp = commandLineHelper.execute("terraform init");
         return commandLineHelper.execute("terraform plan");
     }
 }
