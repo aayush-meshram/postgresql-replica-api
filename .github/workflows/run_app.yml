@@ -43,7 +43,7 @@ jobs:
 
           [Service]
           User=admin
-          ExecStart=/usr/bin/env java -jar /opt/springboot-app/your-app.jar
+          ExecStart= /home/admin/actions-runner/_work/_tool/Java_Temurin-Hotspot_jdk/17.0.14-7/x64/bin/java -jar /opt/springboot-app/your-app.jar -jar /opt/springboot-app/your-app.jar
           SuccessExitStatus=143
           Restart=on-failure
           RestartSec=30
