@@ -46,7 +46,7 @@ jobs:
           ExecStart=/usr/bin/java -jar /opt/springboot-app/your-app.jar
           SuccessExitStatus=143
           Restart=on-failure
-          RestartSec=10
+          RestartSec=30
 
           [Install]
           WantedBy=multi-user.target
@@ -60,5 +60,5 @@ jobs:
 
       - name: Verify Application is Running
         run: |
-          sleep 10  # Wait a bit for the app to start
+          sleep 35  # Wait a bit for the app to start
           curl -I http://localhost:8080/hello || (echo "App is not running!" && exit 1)
